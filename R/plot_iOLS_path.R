@@ -1,0 +1,60 @@
+#' @title plot.iOLS_path
+#'
+#' @description See the notebook at: https://www.davidbenatia.com/.
+#'
+#'
+#' @param m An "iOLS_path" fitted model object.
+#' @param delta_rank Among all the hyper-parameters delta, we can choose to plot the "iOLS_path" fitted model object corresponding to the chosen delta_rank. If a value is not precised, the default value is NULL and the function will only display the estimated parameter(s) in function of log(delta).
+#' @param plot_beta If you want to see the trajectory of one estimated parameter beta only, just precise plot_beta = k (k=0 if you want to see the intercept's trajectory for example). Otherwise, write plot_beta = "" (the default value), and you will see all parameters' trajectory. In this case, the colors of each curve is assigned randomly, but by precising which parameters' trajectory you want to see, it will be drawn in black.
+#' @param ... other parameters.
+#'
+#' @return a plot of a iOLS_path fitted model object.
+
+
+#' @export
+
+plot <-
+  function(m, plot_beta, ...){
+    UseMethod("plot")
+  }
+#' @rdname plot
+#' @method plot iOLS_path
+#' @S3method plot iOLS_path
+plot.iOLS_path <- function(m, delta_rank = NULL, plot_beta = "", ...) {
+
+  if (is.null(delta_rank)) {
+    if (plot_beta == "") {
+      for (i in 1:(dim(cbind(m$x))[2]+1)) {
+        plot(
+          m$coef_iter[, i] ~ log(m$delta_list),
+          ylim = c(-5, 5),
+          col = randomColor(),
+          ylab = 'beta',
+          xlab = 'log(delta)',
+          pch = 20
+        )
+        oldpar <- par(no.readonly = TRUE)
+        on.exit(par(oldpar))
+        par(new = TRUE)
+      }
+    }
+    else {
+      plot(
+        m$coef_iter[, plot_beta + 1] ~ log(m$delta_list),
+        ylim = c(-5, 5),
+        col = "black",
+        ylab = str_c('beta', plot_beta),
+        xlab = 'log(delta)',
+        pch = 20
+      )
+    }
+  }
+  else {
+    if (plot_beta == "") {
+      plot(m$iols[[delta_rank]])
+    }
+    else {
+      plot(m$iols[[delta_rank]], plot_beta)
+    }
+  }
+}
