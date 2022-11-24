@@ -1,7 +1,6 @@
-#' @title plot.iOLS_path
+#' @title iOLS_path_plot
 #'
-#' @description See the notebook at: https://www.davidbenatia.com/.
-#'
+#' @description Function that plots an \code{iOLS_path} fitted model object.
 #'
 #' @param m An "iOLS_path" fitted model object.
 #' @param delta_rank Among all the hyper-parameters delta, we can choose to plot the "iOLS_path" fitted model object corresponding to the chosen delta_rank. If a value is not precised, the default value is NULL and the function will only display the estimated parameter(s) in function of log(delta).
@@ -9,18 +8,9 @@
 #' @param ... other parameters.
 #'
 #' @return a plot of a iOLS_path fitted model object.
-
-
+#'
 #' @export
-
-plot <-
-  function(m, plot_beta, ...){
-    UseMethod("plot")
-  }
-#' @rdname plot
-#' @method plot iOLS_path
-#' @S3method plot iOLS_path
-plot.iOLS_path <- function(m, delta_rank = NULL, plot_beta = "", ...) {
+iOLS_path_plot <- function(m, delta_rank = NULL, plot_beta = "", ...) {
 
   if (is.null(delta_rank)) {
     if (plot_beta == "") {
@@ -58,3 +48,24 @@ plot.iOLS_path <- function(m, delta_rank = NULL, plot_beta = "", ...) {
     }
   }
 }
+
+#' @examples
+#' data(DATASET)
+#' y = DATASET$y
+#' x = as.matrix(DATASET[,c("X1","X2")])
+#' lm = lm(log(y+1) ~ x)
+#' lm_coef = c(coef(lm))
+#' X = cbind(rep(1, nrow(x)), x)
+#' k = iOLS_path(y, X, b_init = lm_coef, deltainf = 10^-5,
+#' deltasup = 10^4, nbre_delta = 20,
+#' epsi = 10^-3, error_type = "HC0")
+#'
+#' #All the parameters, as a function of log(delta) (ie. each triplet from an iOLS regression) :
+#' iOLS_path_plot(k)
+#'
+#' #All the parameters from the 6th iOLS regression :
+#' iOLS_path_plot(k, delta_rank = 6)
+#'
+#' #Intercept from the 6th iOLS regression :
+#' iOLS_path_plot(k, delta_rank = 6, plot_beta = 0)
+#'

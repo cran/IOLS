@@ -33,8 +33,20 @@ iOLS_path(
 \item{error_type}{a character string specifying the estimation type of the covariance matrix. Argument of the vcovHC function, then click this link for details. "HC0" is the default value, this the White's estimator.}
 }
 \value{
-a iOLS_path fitted model object
+a iOLS_path fitted model object.
 }
 \description{
-See the notebook at: https://www.davidbenatia.com/.
+iOLS regression repeated for several values of the hyper-parameter delta.
+}
+\examples{
+data(DATASET)
+y = DATASET$y
+x = as.matrix(DATASET[,c("X1","X2")])
+lm = lm(log(y+1) ~ x)
+lm_coef = c(coef(lm))
+X = cbind(rep(1, nrow(x)), x)
+k = iOLS_path(y, X, b_init = lm_coef,
+deltainf = 10^-5, deltasup = 10^4, nbre_delta = 20,
+epsi = 10^-3, error_type = "HC0")
+
 }

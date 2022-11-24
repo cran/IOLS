@@ -15,5 +15,5 @@ lambda_test(f, nB)
 a lambda_test object
 }
 \description{
-See the notebook at: https://www.davidbenatia.com/.
+Printing and plotting of the lambda-test.
 }

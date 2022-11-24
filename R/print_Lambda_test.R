@@ -5,16 +5,16 @@
 #' @param ... other parameters.
 #'
 #' @return a display and a plot of a lambda_test object.
-
-
+#
 #' @export
 print <-
   function(m, ...){
     UseMethod("print")
   }
-#' @rdname print
-#' @method print lambda_test
-#' @S3method print lambda_test
+
+#' @rdname print.lambda_test
+#'
+#' @method {print} {lambda_test}
 print.lambda_test <- function(m, ...){
   cat(
     "Lambda-test:\n\nLambda 1 :",
@@ -52,3 +52,19 @@ print.lambda_test <- function(m, ...){
 
   abline(h = 1)
 }
+
+#' @examples
+#' data(DATASET)
+#' y = DATASET$y
+#' x = as.matrix(DATASET[,c("X1","X2")])
+#' lm = lm(log(y+1) ~ x)
+#' lm_coef = c(coef(lm))
+#' X = cbind(rep(1, nrow(x)), x)
+#' k = iOLS_path(y, X, b_init = lm_coef, deltainf = 10^-5,
+#' deltasup = 10^4, nbre_delta = 20,
+#' epsi = 10^-3, error_type = "HC0")
+#'
+#' L = lambda_test(k, nB = 5)
+#'
+#' print(L)
+#'

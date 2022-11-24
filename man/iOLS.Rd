@@ -27,8 +27,6 @@ iOLS(y, X, VX, tX, d, epsi = 10^-5, b_init, error_type = "HC0")
 a iOLS fitted model object
 }
 \description{
-See the notebook at: https://www.davidbenatia.com/.
-}
-\examples{
-#See the simulation notebook at www.davidbenatia.com
+\code{iOLS} used to fit log-linear model/log-log model, adressing the "log of zero" problem,
+based on the theoretical results developed in the following paper : \url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3444996}.
 }

@@ -1,6 +1,6 @@
 #' @title lambda_test
 #'
-#' @description See the notebook at: https://www.davidbenatia.com/.
+#' @description Printing and plotting of the lambda-test.
 #'
 #' @param f An "iOLS_path" fitted model object that you want to apply this test on.
 #' @param nB The number of iteration that you want to be done in the bootstrap process used in the function.
@@ -12,7 +12,7 @@ lambda_test <- function(f, nB){
 
   data <- f$data
 
-  calcul_lambda <- function(data, ind) {
+  calcul_lambda <- function(data, ind){
     dB <- data[ind, ]
     lambda <- NULL
     ydB <- dB[, 1]
@@ -69,3 +69,17 @@ lambda_test <- function(f, nB){
   class(z) <- "lambda_test"
   z
 }
+
+#' @examples
+#' data(DATASET)
+#' y = DATASET$y
+#' x = as.matrix(DATASET[,c("X1","X2")])
+#' lm = lm(log(y+1) ~ x)
+#' lm_coef = c(coef(lm))
+#' X = cbind(rep(1, nrow(x)), x)
+#' k = iOLS_path(y, X, b_init = lm_coef, deltainf = 10^-5,
+#' deltasup = 10^4, nbre_delta = 20,
+#' epsi = 10^-3, error_type = "HC0")
+#'
+#' L = lambda_test(k, nB = 5)
+#'
