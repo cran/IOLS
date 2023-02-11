@@ -20,23 +20,37 @@ iOLS_path(
 
 \item{X}{the regressors matrix x with a column of ones added.}
 
-\item{deltainf}{numeric, the lowest hyper-parameter delta we want to apply iOLS with. The default value is 10^-5.}
+\item{deltainf}{numeric, the lowest hyper-parameter delta
+we want to apply iOLS with. The default value is 10^-5.}
 
-\item{deltasup}{numeric, the highest hyper-parameter delta we want to apply iOLS with. The default value is 10000.}
+\item{deltasup}{numeric, the highest hyper-parameter delta
+we want to apply iOLS with. The default value is 10000.}
 
-\item{nbre_delta}{integer, the number of hyper-parameters delta we want between deltainf and deltasup.}
+\item{nbre_delta}{integer, the number of hyper-parameters delta
+we want between deltainf and deltasup.}
 
-\item{epsi}{since the estimated parameters are obtained by converging, we need a convergence criterion epsi (supposed to be small, usually around 10^-5), to make the program stop once the estimations are near their limits. A numeric.}
+\item{epsi}{since the estimated parameters are obtained by converging,
+we need a convergence criterion epsi
+(supposed to be small, usually around 10^-5),
+to make the program stop once the estimations are near their limits.
+A numeric.}
 
-\item{b_init}{the point from which the solution starts its converging trajectory. A vector that has the same number of elements as there are parameters estimated in the model.}
+\item{b_init}{the point from which the solution starts
+its converging trajectory. A vector that has
+the same number of elements as there are parameters estimated
+in the model.}
 
-\item{error_type}{a character string specifying the estimation type of the covariance matrix. Argument of the vcovHC function, then click this link for details. "HC0" is the default value, this the White's estimator.}
+\item{error_type}{a character string specifying the estimation type
+of the covariance matrix. Argument of the vcovHC function,
+then click this link for details. "HC0" is the default value,
+this the White's estimator.}
 }
 \value{
-a iOLS_path fitted model object.
+an \code{iOLS_path} fitted model object.
 }
 \description{
-iOLS regression repeated for several values of the hyper-parameter delta.
+\code{iOLS} regression repeated for several values
+of the hyper-parameter delta.
 }
 \examples{
 data(DATASET)

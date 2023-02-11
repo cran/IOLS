@@ -2,10 +2,25 @@
 #'
 #' @description Printing and plotting of the lambda-test.
 #'
-#' @param f An "iOLS_path" fitted model object that you want to apply this test on.
-#' @param nB The number of iteration that you want to be done in the bootstrap process used in the function.
+#' @param f An \code{iOLS_path} fitted model object that you want
+#' to apply this test on.
+#' @param nB The number of iteration that you want to be done
+#' in the bootstrap process used in the function.
 #'
-#' @return a lambda_test object
+#' @return a lambda_test object.
+#'
+#' @examples
+#' data(DATASET)
+#' y = DATASET$y
+#' x = as.matrix(DATASET[,c("X1","X2")])
+#' lm = lm(log(y+1) ~ x)
+#' lm_coef = c(coef(lm))
+#' X = cbind(rep(1, nrow(x)), x)
+#' k = iOLS_path(y, X, b_init = lm_coef, deltainf = 10^-5,
+#' deltasup = 10^4, nbre_delta = 20,
+#' epsi = 10^-3, error_type = "HC0")
+#'
+#' L = lambda_test(k, nB = 5)
 #'
 #' @export
 lambda_test <- function(f, nB){
@@ -23,14 +38,16 @@ lambda_test <- function(f, nB){
     p_hat <-
       glm(y0 ~ xdB, family = binomial(link = "logit"))$fitted.values
 
-    mB <- iOLS_path(ydB, XdB, f$deltainf, f$deltasup, f$nbre_delta, f$epsi, f$init, f$error_type)
+    mB <- iOLS_path(ydB, XdB, f$deltainf, f$deltasup, f$nbre_delta,
+                    f$epsi, f$init, f$error_type)
 
     for (i in 1:length(mB$delta_list)) {
       c_hat <- c_(mB$delta_list[i], mB$iols[[i]]$coef, ydB, XdB)
       w <- (c_hat - log(mB$delta_list[i])) / p_hat
       u_hat_pos <- mB$iols[[i]]$residuals[ydB > 0]
       lm_test <-
-        lm( log(mB$delta_list[i] + u_hat_pos)-log(mB$delta_list[i]) ~ w[ydB > 0])
+        lm( log(mB$delta_list[i] + u_hat_pos)-log(mB$delta_list[i])
+            ~ w[ydB > 0])
       lambda <- c(lambda, lm_test$coefficients[2])
     }
     lambda
@@ -69,17 +86,3 @@ lambda_test <- function(f, nB){
   class(z) <- "lambda_test"
   z
 }
-
-#' @examples
-#' data(DATASET)
-#' y = DATASET$y
-#' x = as.matrix(DATASET[,c("X1","X2")])
-#' lm = lm(log(y+1) ~ x)
-#' lm_coef = c(coef(lm))
-#' X = cbind(rep(1, nrow(x)), x)
-#' k = iOLS_path(y, X, b_init = lm_coef, deltainf = 10^-5,
-#' deltasup = 10^4, nbre_delta = 20,
-#' epsi = 10^-3, error_type = "HC0")
-#'
-#' L = lambda_test(k, nB = 5)
-#'

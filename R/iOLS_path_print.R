@@ -1,12 +1,15 @@
 #' @title print.iOLS_path
-#'
-#' @description Function that prints an \code{iOLS_path} fitted model object.
-#' @param m An "iOLS_path" fitted model object.
-#' @param delta_rank Among all the hyper-parameters delta, we can choose to plot the "iOLS_path" fitted model object corresponding to the chosen delta_rank. If a value is not precised, the default value is NULL and the function will only display the estimated parameter(s) in function of log(delta).
+#' @description Function that prints an \code{iOLS_path}
+#' fitted model object.
+#' @param m An \code{iOLS_path} fitted model object.
+#' @param delta_rank Among all the hyper-parameters delta,
+#' we can choose to plot the "iOLS_path" fitted model object
+#' corresponding to the chosen delta_rank.
+#' If a value is not precised, the default value is NULL
+#' and the function will only display the estimated parameter(s)
+#' in function of log(delta).
 #' @param ... other parameters.
-#'
-#' @return a display of a iOLS_path fitted model object.
-#'
+#' @return a display of a \code{iOLS_path} fitted model object.
 #' @examples
 #' data(DATASET)
 #' y = DATASET$y
@@ -23,16 +26,7 @@
 #'
 #' #Printing of the 6th iOLS regression :
 #' print(k, delta_rank = 6)
-#'
-#' @export
-print <-
-  function(m, delta_rank = NULL, ...){
-    UseMethod("print")
-  }
 
-#' @rdname print.iOLS_path
-#'
-#' @method {print} {iOLS_path}
 print.iOLS_path <- function(m, delta_rank = NULL, ...) {
   if (is.null(delta_rank)) {
     cat("\nCall: iOLS_path(y ~ x)\n")

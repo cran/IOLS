@@ -7,15 +7,39 @@
 iOLS_plot(m, ..., plot_beta = "")
 }
 \arguments{
-\item{m}{An "iOLS" fitted model object.}
+\item{m}{An \code{iOLS} fitted model object.}
 
 \item{...}{other parameters.}
 
-\item{plot_beta}{If you want to see the trajectory of one estimated parameter beta only, just precise plot_beta = k (k=0 if you want to see the intercept's trajectory for example). Otherwise, write plot_beta = "" (the default value), and you will see all parameters' trajectory. In this case, the colors of each curve is assigned randomly, but by precising which parameters' trajectory you want to see, it will be drawn in black.}
+\item{plot_beta}{If you want to see the trajectory of one
+estimated parameter beta only, just precise plot_beta = k
+(k=0 if you want to see the intercept's trajectory for example).
+Otherwise, write plot_beta = "" (the default value),
+and you will see all parameters' trajectory.
+In this case, the colors of each curve is assigned randomly,
+but by precising which parameters' trajectory you want to see,
+it will be drawn in black.}
 }
 \value{
-a plot of a iOLS fitted model object.
+a plot of an \code{iOLS} fitted model object.
 }
 \description{
 Function that plots an \code{iOLS} fitted model object.
+}
+\examples{
+data(DATASET)
+y = DATASET$y
+x = as.matrix(DATASET[,c("X1","X2")])
+lm = lm(log(y+1) ~ x)
+lm_coef = c(coef(lm))
+X = cbind(rep(1, nrow(x)), x)
+tX = t(X)
+library(matlib) ; VX = inv(tX \%*\% X)
+f = iOLS(y, X, VX, tX, 20, b_init = lm_coef)
+
+iOLS_plot(f)
+
+#Only one of the estimated parameters, for example k=0 (the intercept):
+iOLS_plot(f, plot_beta = 0)
+
 }

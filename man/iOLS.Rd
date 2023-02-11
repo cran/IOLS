@@ -17,16 +17,39 @@ iOLS(y, X, VX, tX, d, epsi = 10^-5, b_init, error_type = "HC0")
 
 \item{d}{the value of the hyper-parameter delta, numeric.}
 
-\item{epsi}{since the estimated parameters are obtained by converging, we need a convergence criterion epsi (supposed to be small, usually around 10^-5), to make the program stop once the estimations are near their limits. A numeric.}
+\item{epsi}{since the estimated parameters are obtained by converging,
+we need a convergence criterion epsi (supposed to be small,
+usually around 10^-5), to make the program stop once the estimations
+are near their limits. A numeric.}
 
-\item{b_init}{the point from which the solution starts its converging trajectory. A vector that has the same number of elements as there are parameters estimated in the model.}
+\item{b_init}{the point from which the solution starts its
+converging trajectory. A vector that has the same number of elements
+as there are parameters estimated in the model.}
 
-\item{error_type}{a character string specifying the estimation type of the covariance matrix. Argument of the vcovHC function, then click this link for details. "HC0" is the default value, this the White's estimator.}
+\item{error_type}{a character string specifying
+the estimation type of the covariance matrix.
+Argument of the vcovHC function, then click this link for details.
+"HC0" is the default value, this the White's estimator.}
 }
 \value{
-a iOLS fitted model object
+an \code{iOLS} fitted model object.
 }
 \description{
-\code{iOLS} used to fit log-linear model/log-log model, adressing the "log of zero" problem,
-based on the theoretical results developed in the following paper : \url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3444996}.
+\code{iOLS} regression is used to fit
+log-linear model/log-log model, adressing the "log of zero" problem,
+based on the theoretical results developed
+in the following paper :
+\url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3444996}.
+}
+\examples{
+data(DATASET)
+y = DATASET$y
+x = as.matrix(DATASET[,c("X1","X2")])
+lm = lm(log(y+1) ~ x)
+lm_coef = c(coef(lm))
+X = cbind(rep(1, nrow(x)), x)
+tX = t(X)
+library(matlib) ; VX = inv(tX \%*\% X)
+f = iOLS(y, X, VX, tX, 20, b_init = lm_coef)
+
 }
