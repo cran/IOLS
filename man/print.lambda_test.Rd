@@ -2,7 +2,7 @@
 % Please edit documentation in R/lambda_test_print.R
 \name{print.lambda_test}
 \alias{print.lambda_test}
-\title{print.lambda_test#'}
+\title{print.lambda_test}
 \usage{
 \method{print}{lambda_test}(m, ...)
 }

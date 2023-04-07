@@ -1,8 +1,12 @@
 #' @title print.iOLS
+#'
 #' @description Function that prints an \code{iOLS} fitted model object.
+#'
 #' @param m An \code{iOLS} fitted model object.
 #' @param ... other parameters.
+#'
 #' @return a display of an \code{iOLS} fitted model object.
+#'
 #' @examples
 #' data(DATASET)
 #' y = DATASET$y
@@ -14,6 +18,13 @@
 #' library(matlib) ; VX = inv(tX %*% X)
 #' f = iOLS(y, X, VX, tX, 20, b_init = lm_coef)
 #' print(f)
+#'
+#' @export
+
+print <-
+function(m, ...){
+  UseMethod("print")
+}
 
 print.iOLS <- function(m, ...) {
 

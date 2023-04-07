@@ -1,6 +1,6 @@
 Package: IOLS
 Title: Iterated Ordinary Least Squares Regression
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: c(person("Nassim", "Zbalah", email = "nas66.nz@gmail.com", role = "cre"), person("David", "Benatia", email = "david.benatia@hec.com", role = "aut"))
 Description: Addresses the 'log of zero' by developing a new family of 
     estimators called iterated Ordinary Least Squares. 
@@ -16,9 +16,9 @@ Imports: stats, utils, sandwich, matlib, boot, randomcoloR, stringr
 Depends: R (>= 2.10)
 LazyData: true
 NeedsCompilation: no
-Packaged: 2023-03-18 21:02:32 UTC; Zbalah
+Packaged: 2023-04-07 20:37:35 UTC; Zbalah
 Author: Nassim Zbalah [cre],
   David Benatia [aut]
 Maintainer: Nassim Zbalah <nas66.nz@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-03-18 21:10:02 UTC
+Date/Publication: 2023-04-07 20:50:02 UTC

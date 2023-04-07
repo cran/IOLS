@@ -1,6 +1,8 @@
 #' @title print.iOLS_path
+#'
 #' @description Function that prints an \code{iOLS_path}
 #' fitted model object.
+#'
 #' @param m An \code{iOLS_path} fitted model object.
 #' @param delta_rank Among all the hyper-parameters delta,
 #' we can choose to plot the "iOLS_path" fitted model object
@@ -9,7 +11,9 @@
 #' and the function will only display the estimated parameter(s)
 #' in function of log(delta).
 #' @param ... other parameters.
+#'
 #' @return a display of a \code{iOLS_path} fitted model object.
+#'
 #' @examples
 #' data(DATASET)
 #' y = DATASET$y
@@ -26,6 +30,8 @@
 #'
 #' #Printing of the 6th iOLS regression :
 #' print(k, delta_rank = 6)
+#'
+#' @export
 
 print.iOLS_path <- function(m, delta_rank = NULL, ...) {
   if (is.null(delta_rank)) {

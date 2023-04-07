@@ -1,8 +1,12 @@
-#' @title print.lambda_test#'
+#' @title print.lambda_test
+#'
 #' @description Function that prints a \code{lambda_test} object.
+#'
 #' @param m  A \code{lambda_test} object.
 #' @param ... other parameters.
+#'
 #' @return a display and a plot of a \code{lambda_test} object.
+#'
 #' @examples
 #' data(DATASET)
 #' y = DATASET$y
@@ -17,6 +21,8 @@
 #' L = lambda_test(k, nB = 5)
 #'
 #' print(L)
+
+#'@export
 
 print.lambda_test <- function(m, ...){
   cat(
